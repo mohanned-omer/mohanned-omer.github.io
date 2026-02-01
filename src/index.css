@@ -1,0 +1,449 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================
+   MOTION SYSTEM
+   One curve, three durations. Easing reads as personality, so everything
+   that moves on this site moves with the same hand.
+   ========================================= */
+:root {
+  --ease-signature: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --duration-state: 120ms;
+  /* hover, focus, press */
+  --duration-transition: 240ms;
+  /* something changing in place */
+  --duration-entrance: 420ms;
+  /* something arriving */
+
+  --reveal-shift: 14px;
+  --reveal-step: 45ms;
+}
+
+/* Base layer customizations */
+@layer base {
+  html {
+    @apply antialiased scroll-smooth;
+  }
+
+  body {
+    @apply bg-white text-neutral-900 font-mono antialiased min-h-screen leading-relaxed;
+  }
+
+  a {
+    @apply underline underline-offset-4 decoration-neutral-300 transition-colors hover:text-neutral-900 text-neutral-500;
+  }
+
+  /* Enhanced focus states for accessibility */
+  :focus-visible {
+    @apply outline-none ring-2 ring-neutral-900 ring-offset-2;
+  }
+
+  /* Selection styling */
+  ::selection {
+    @apply bg-neutral-900 text-white;
+  }
+}
+
+/* Component layer for reusable patterns */
+@layer components {
+
+  /* Section header styling.
+     No rule underneath. Seven full-width lines down a page read as a form,
+     and the space above each heading already says "new section" — drawing
+     the boundary twice is the cheapest kind of clutter to remove. */
+  .section-header {
+    @apply text-xs font-bold uppercase tracking-widest mb-6 text-neutral-400;
+  }
+
+  /* ---------------------------------------
+     Reveal — entrances driven by the viewport, not by a load timer.
+     Anything in the first viewport skips this entirely.
+     --------------------------------------- */
+  .reveal,
+  .reveal-stagger>* {
+    opacity: 0;
+    transform: translateY(var(--reveal-shift));
+    transition:
+      opacity var(--duration-entrance) var(--ease-signature),
+      transform var(--duration-entrance) var(--ease-signature);
+  }
+
+  .reveal.is-revealed,
+  .reveal-stagger.is-revealed>* {
+    opacity: 1;
+    transform: none;
+  }
+
+  .reveal-stagger.is-revealed>*:nth-child(1) {
+    transition-delay: 0ms;
+  }
+
+  .reveal-stagger.is-revealed>*:nth-child(2) {
+    transition-delay: calc(var(--reveal-step) * 1);
+  }
+
+  .reveal-stagger.is-revealed>*:nth-child(3) {
+    transition-delay: calc(var(--reveal-step) * 2);
+  }
+
+  .reveal-stagger.is-revealed>*:nth-child(4) {
+    transition-delay: calc(var(--reveal-step) * 3);
+  }
+
+  .reveal-stagger.is-revealed>*:nth-child(5) {
+    transition-delay: calc(var(--reveal-step) * 4);
+  }
+
+  .reveal-stagger.is-revealed>*:nth-child(6) {
+    transition-delay: calc(var(--reveal-step) * 5);
+  }
+
+  .reveal-stagger.is-revealed>*:nth-child(7) {
+    transition-delay: calc(var(--reveal-step) * 6);
+  }
+
+  .reveal-stagger.is-revealed>*:nth-child(n + 8) {
+    transition-delay: calc(var(--reveal-step) * 7);
+  }
+
+  /* Back link styling */
+  .back-link {
+    @apply inline-flex items-center gap-1 text-xs font-bold uppercase tracking-widest text-neutral-400 no-underline hover:text-neutral-900 transition-colors duration-state;
+  }
+
+  /* Page title styling */
+  .page-title {
+    @apply text-3xl md:text-4xl font-bold tracking-tight mb-3 text-neutral-900;
+  }
+
+  /* Page subtitle styling */
+  .page-subtitle {
+    @apply text-neutral-500 italic;
+  }
+
+  .route-pending {
+    @apply fixed left-0 right-0 top-0 z-50 h-px overflow-hidden bg-transparent;
+  }
+
+  .route-pending::after {
+    content: '';
+    display: block;
+    width: 35%;
+    height: 100%;
+    background: #171717;
+    animation: route-pending 900ms ease-in-out infinite;
+  }
+
+  .post-gear-trigger {
+    @apply inline-flex items-center justify-center gap-2 border border-neutral-200 bg-white px-5 py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-neutral-700 transition-colors duration-state hover:border-neutral-400 hover:bg-neutral-50 hover:text-neutral-900;
+  }
+
+  /* ---------------------------------------
+     Reading progress — the same 1px slot the route indicator uses, so
+     "something is happening at the top edge" stays one idea.
+     --------------------------------------- */
+  .read-progress {
+    @apply fixed left-0 right-0 top-0 z-40 h-px bg-transparent;
+  }
+
+  .read-progress__bar {
+    @apply h-full bg-neutral-900 origin-left;
+    /* Near-linear: a progress bar that eases is a progress bar that lies. */
+    transition: transform 90ms linear;
+  }
+
+  /* ---------------------------------------
+     List rows — metadata is held back until the row is actually
+     approached, so attention is rewarded rather than pre-spent.
+     --------------------------------------- */
+  .row-reveal {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition:
+      max-height var(--duration-transition) var(--ease-signature),
+      opacity var(--duration-transition) var(--ease-signature);
+  }
+
+  .group:hover .row-reveal,
+  .group:focus-visible .row-reveal,
+  .group:focus-within .row-reveal {
+    max-height: 5rem;
+    opacity: 1;
+  }
+}
+
+@keyframes route-pending {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(300%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  /* Nothing may be left stranded mid-animation when motion is declined. */
+  .reveal,
+  .reveal-stagger>* {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .row-reveal {
+    max-height: 5rem;
+    opacity: 1;
+  }
+
+  .route-pending::after {
+    animation: none;
+    opacity: 0.2;
+    width: 100%;
+  }
+
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}
+
+@layer utilities {
+
+  /* Fade mask for visual polish */
+  .fade-edge-bottom {
+    mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+  }
+}
+
+/* Intentional empty states for project media that is not ready to publish.
+   These are documentation slots, not substitutes for real screenshots. */
+.media-placeholder-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.media-placeholder {
+  min-height: 11rem;
+  padding: 1.25rem;
+  border: 1px dashed #d4d4d4;
+  background-color: #fafafa;
+  background-image:
+    linear-gradient(#f1f1f1 1px, transparent 1px),
+    linear-gradient(90deg, #f1f1f1 1px, transparent 1px);
+  background-size: 24px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.media-placeholder-wide {
+  grid-column: 1 / -1;
+}
+
+.media-placeholder span {
+  margin-bottom: auto;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #b3b3b3;
+}
+
+.media-placeholder strong {
+  font-size: 0.8rem;
+  color: #404040;
+}
+
+.media-placeholder p {
+  margin: 0.35rem 0 0 !important;
+  font-size: 0.7rem;
+  line-height: 1.55 !important;
+  color: #a3a3a3;
+}
+
+@media (max-width: 640px) {
+  .media-placeholder-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .media-placeholder-wide {
+    grid-column: auto;
+  }
+}
+
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+.footer-root {
+  margin-top: 6rem;
+  padding-bottom: 2rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.8rem;
+  color: #737373;
+}
+
+.footer-divider {
+  width: 100%;
+  height: 1px;
+  /* A flat hairline. The fading gradient was a small piece of decoration
+     doing the job a plain line already does. */
+  background: #f0f0f0;
+  margin-bottom: 2.5rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.footer-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.footer-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #171717;
+  letter-spacing: -0.01em;
+}
+
+.footer-lab {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #a3a3a3;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.footer-status {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1rem;
+  font-size: 0.65rem;
+  color: #a3a3a3;
+  letter-spacing: 0.04em;
+}
+
+/* Neutral, unlit, still. It was the one saturated colour on the site and it
+   pulsed forever in the corner of the eye to report nothing. */
+.footer-status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #d4d4d4;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.footer-col-heading {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #a3a3a3;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.footer-col-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #525252;
+  text-decoration: none;
+  font-size: 0.78rem;
+  transition: color var(--duration-state) var(--ease-signature), transform var(--duration-state) var(--ease-signature);
+  transform: translateX(0);
+}
+
+.footer-link:hover {
+  color: #171717;
+  transform: translateX(3px);
+}
+
+.footer-link-dash {
+  font-size: 0.6rem;
+  color: #d4d4d4;
+  transition: color var(--duration-state) var(--ease-signature);
+  flex-shrink: 0;
+}
+
+.footer-link:hover .footer-link-dash {
+  color: #171717;
+}
+
+.footer-link-arrow {
+  font-size: 0.6rem;
+  opacity: 0;
+  margin-left: -0.2rem;
+  transition: opacity var(--duration-state) var(--ease-signature), margin-left var(--duration-state) var(--ease-signature);
+}
+
+.footer-link:hover .footer-link-arrow {
+  opacity: 0.6;
+  margin-left: 0.1rem;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid #f5f5f5;
+}
+
+.footer-copyright {
+  font-size: 0.62rem;
+  color: #a3a3a3;
+  letter-spacing: 0.04em;
+}
+
+.footer-build {
+  font-size: 0.62rem;
+  color: #d4d4d4;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+}
