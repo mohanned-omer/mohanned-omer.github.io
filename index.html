@@ -1,2 +1,1342 @@
-<!doctype html>
-<meta http-equiv="refresh" content="0; url=resume.pdf">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5">
+<title>Mohanned's Personal Website</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231a1816'/><text x='16' y='24' text-anchor='middle' font-size='20' font-family='Georgia,serif' font-weight='500' fill='%23c73e1d'>M</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f1ea;
+    --bg-alt: #ebe5da;
+    --ink: #1a1816;
+    --ink-soft: #3a3632;
+    --muted: #8a847c;
+    --rule: #d8d1c4;
+    --accent: #c73e1d;
+    --accent-soft: #a83418;
+    --code: #3a5a40;
+    --brand-linkedin: #0a66c2;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --serif: 'IBM Plex Serif', Georgia, serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16140f;
+      --bg-alt: #1f1c16;
+      --ink: #ede7da;
+      --ink-soft: #c8c2b4;
+      --muted: #8a8478;
+      --rule: #2e2a22;
+      --accent: #e55a3a;
+      --accent-soft: #ff7050;
+      --code: #a3c9a8;
+    }
+  }
+
+  .notice-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--bg-alt);
+    border-bottom: 1px solid var(--rule);
+    color: #ffffff;
+    font-size: 0.88rem;
+    text-align: center;
+    padding: 0.4rem 1rem;
+    background: var(ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .notice-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 15px; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--mono);
+    line-height: 1.7;
+    min-height: 100vh;
+    padding: 5rem 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(circle at 1px 1px, var(--rule) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-position: -1px -1px;
+  }
+
+  .wrap {
+    width: 100%;
+    max-width: 700px;
+    background: var(--bg);
+    position: relative;
+  }
+
+  header {
+    margin-bottom: 4rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .commit {
+    position: fixed;
+    top: 0.85rem;
+    right: 1.1rem;
+    z-index: 30;
+    display: inline-flex;
+    gap: 0.6rem;
+    align-items: baseline;
+    justify-content: flex-end;
+    max-width: min(24rem, calc(100vw - 3rem));
+    padding: 0.15rem 0;
+    font-size: 0.75rem;
+    line-height: 1;
+    color: var(--muted);
+  }
+
+  .commit-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    color: var(--muted);
+  }
+
+  .commit-hash {
+    color: var(--code);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+  }
+
+  .commit-msg {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: opacity 0.4s ease;
+    color: var(--muted);
+  }
+
+  nav {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.15s ease;
+    position: relative;
+  }
+
+  nav a:hover {
+    color: var(--ink);
+  }
+
+  nav a.active {
+    color: var(--accent);
+  }
+
+  nav a.active::before {
+    content: '>';
+    position: absolute;
+    left: -0.55rem;
+  }
+
+  .page {
+    display: none;
+    animation: fadeIn 0.4s ease both;
+  }
+
+  .page.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .line-slide-in {
+    opacity: 0;
+    transform: translateY(-18px);
+    filter: blur(5px);
+    animation: lineSlideIn 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .line-delay-1 { animation-delay: 0.08s; }
+  .line-delay-2 { animation-delay: 0.16s; }
+  .line-delay-3 { animation-delay: 0.24s; }
+  .line-delay-4 { animation-delay: 0.32s; }
+  .line-delay-5 { animation-delay: 0.4s; }
+  .line-delay-6 { animation-delay: 0.48s; }
+  .line-delay-7 { animation-delay: 0.56s; }
+  .line-delay-8 { animation-delay: 0.64s; }
+
+  @keyframes lineSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-18px);
+      filter: blur(5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 1.95rem;
+    letter-spacing: -0.015em;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  h1 .wave {
+    display: inline-block;
+    transform-origin: 70% 70%;
+    animation: wave 2.4s ease-in-out 1s;
+  }
+
+  @keyframes wave {
+    0%, 60%, 100% { transform: rotate(0); }
+    10%, 30% { transform: rotate(14deg); }
+    20%, 40% { transform: rotate(-8deg); }
+  }
+
+  @keyframes waveHover {
+    0%, 100% { transform: rotate(0); }
+    15% { transform: rotate(20deg); }
+    30% { transform: rotate(-14deg); }
+    45% { transform: rotate(20deg); }
+    60% { transform: rotate(-10deg); }
+    75% { transform: rotate(16deg); }
+    90% { transform: rotate(-8deg); }
+  }
+
+  .wave:hover {
+    animation: waveHover 1.8s ease-in-out infinite !important;
+    cursor: pointer;
+  }
+
+  h2, h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    color: var(--ink-soft);
+  }
+
+  a.inline {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease;
+  }
+
+  a.inline:hover {
+    border-bottom-color: var(--accent);
+  }
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+  }
+
+  .avatar svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .avatar text {
+    fill: var(--accent);
+    font-weight: 500;
+  }
+
+  .currently {
+    font-style: italic;
+    font-family: var(--serif);
+    color: var(--ink-soft);
+  }
+
+  .currently-text {
+    transition: opacity 0.4s ease;
+  }
+
+  .comment {
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+
+  .socials {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+  }
+
+  .socials a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color 0.15s ease, transform 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .socials a:hover {
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .social-icon {
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.8;
+  }
+
+  .logo-stack {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .logo-layer {
+    position: absolute;
+    inset: 0;
+    transition: clip-path 0.25s ease, transform 0.25s ease, color 0.25s ease;
+  }
+
+  .logo-mark {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .logo-mark-tight {
+    transform: scale(1.14);
+    transform-origin: center;
+  }
+
+  .logo-base {
+    color: var(--muted);
+    opacity: 0.42;
+    filter: grayscale(1);
+  }
+
+  .logo-fill {
+    color: var(--accent);
+    clip-path: inset(100% 0 0 0);
+  }
+
+  .logo-fill.logo-linkedin {
+    color: var(--brand-linkedin);
+  }
+
+  .logo-fill.logo-github {
+    color: var(--ink);
+  }
+
+  .socials a:hover .logo-fill,
+  .socials a:focus-visible .logo-fill {
+    clip-path: inset(0 0 0 0);
+  }
+
+  .socials a:hover .logo-base,
+  .socials a:focus-visible .logo-base {
+    transform: translateY(-1px);
+    opacity: 0.28;
+  }
+
+  .socials a:focus-visible {
+    outline: none;
+    color: var(--accent);
+  }
+
+  .socials a:hover .logo-stack,
+  .socials a:focus-visible .logo-stack {
+    animation: logoPulse 0.4s ease-out;
+  }
+
+  @keyframes logoPulse {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.08); }
+    60% { transform: scale(0.97); }
+    100% { transform: scale(1); }
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 0.55em;
+    height: 1.05em;
+    background: var(--accent);
+    vertical-align: text-bottom;
+    margin-left: 2px;
+    animation: blink 1.1s steps(2) infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  .section-label {
+    color: var(--muted);
+    font-size: 0.88rem;
+    margin-bottom: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed var(--rule);
+  }
+
+  .subtle-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    font-size: 0.85rem;
+  }
+
+  .subtle-links a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .subtle-links a:hover {
+    color: var(--accent);
+  }
+
+  .block {
+    margin-bottom: 2.25rem;
+  }
+
+  .block:last-child {
+    margin-bottom: 0;
+  }
+
+  .micro-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+    margin: 1.4rem 0 1.8rem;
+  }
+
+  .micro-card {
+    padding: 0.8rem 0.9rem;
+    border: 1px solid var(--rule);
+    background: var(--bg-alt);
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+
+  .micro-card strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .block-title {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+
+  .note {
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+
+  .list-item,
+  .project,
+  .article {
+    margin-bottom: 2.1rem;
+    padding: 1rem 1rem 1rem 1.8rem;
+    position: relative;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+    border-left: 2px solid transparent;
+    opacity: 0;
+    animation: itemFadeIn 0.4s ease forwards;
+  }
+
+  .project:nth-child(2),
+  .article:nth-child(2),
+  .list-item:nth-child(2) { animation-delay: 0.05s; }
+  .project:nth-child(3),
+  .article:nth-child(3),
+  .list-item:nth-child(3) { animation-delay: 0.1s; }
+  .project:nth-child(4),
+  .article:nth-child(4),
+  .list-item:nth-child(4) { animation-delay: 0.15s; }
+  .project:nth-child(5),
+  .article:nth-child(5),
+  .list-item:nth-child(5) { animation-delay: 0.2s; }
+  .project:nth-child(6),
+  .article:nth-child(6),
+  .list-item:nth-child(6) { animation-delay: 0.25s; }
+
+  @keyframes itemFadeIn {
+    to { opacity: 1; }
+  }
+
+  .list-item::before,
+  .project::before,
+  .article::before {
+    content: '>';
+    position: absolute;
+    left: 0.3rem;
+    top: 1.1rem;
+    color: var(--accent);
+    font-size: 0.85rem;
+    transition: transform 0.2s ease;
+  }
+
+  .list-item:hover,
+  .project:hover,
+  .article:hover {
+    transform: translateX(4px);
+    background: var(--bg-alt);
+    border-left-color: var(--accent);
+  }
+
+  .list-item:hover::before,
+  .project:hover::before,
+  .article:hover::before {
+    transform: translateX(3px);
+  }
+
+  .item-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.35rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .item-title {
+    font-family: var(--serif);
+    font-size: 1.12rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .item-meta {
+    color: var(--muted);
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+
+  .item-desc {
+    color: var(--ink-soft);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  .item-tags {
+    font-size: 0.78rem;
+    color: var(--code);
+    letter-spacing: 0.01em;
+  }
+
+  .skill-groups {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .skill-row {
+    border-left: 2px solid var(--rule);
+    padding-left: 1rem;
+  }
+
+  .skill-row strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .contact-list {
+    display: grid;
+    gap: 1.15rem;
+  }
+
+  .tiny-note {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--rule);
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+
+  .empty-blog {
+    border-left: 2px solid var(--accent);
+    padding: 1rem 1.25rem;
+    background: var(--bg-alt);
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+
+  .empty-blog .todo {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+  }
+
+  .mascot {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px dashed var(--rule);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .mascot-img {
+    width: 96px;
+    height: 96px;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+
+  .z {
+    fill: var(--muted);
+    font-family: var(--serif);
+    font-style: italic;
+  }
+
+  .z1 { animation: float 3s ease-in-out infinite; }
+  .z2 { animation: float 3s ease-in-out 0.6s infinite; }
+  .z3 { animation: float 3s ease-in-out 1.2s infinite; }
+
+  @keyframes float {
+    0% { opacity: 0; transform: translate(0, 0); }
+    20% { opacity: 0.7; }
+    100% { opacity: 0; transform: translate(-3px, -12px); }
+  }
+
+  .site-footer {
+    width: 100%;
+    margin-top: 1rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    font-family: var(--mono);
+    position: relative;
+  }
+
+  .footer-left {
+    color: #ffffff;
+  }
+
+  .footer-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.6);
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    cursor: default;
+    transition: color 0.25s ease, font-size 0.25s ease, font-weight 0.25s ease;
+  }
+
+  .footer-center:hover {
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-shadow: 0 0 8px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.25);
+  }
+
+  .footer-center:hover svg {
+    filter: drop-shadow(0 0 4px rgba(255,255,255,0.7));
+    opacity: 1;
+  }
+
+  .footer-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .footer-right a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .footer-right a:hover {
+    color: #ffffff;
+  }
+
+  .footer-icon-wrap {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+  }
+
+  .footer-icon-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    transition: clip-path 0.25s ease, color 0.25s ease;
+  }
+
+  .footer-icon-base {
+    color: rgba(255,255,255,0.5);
+  }
+
+  .footer-icon-fill {
+    clip-path: inset(100% 0 0 0);
+  }
+
+  .footer-github .footer-icon-fill { color: #ffffff; }
+
+  .footer-right a:hover .footer-icon-fill {
+    clip-path: inset(0 0 0 0);
+  }
+
+  .footer-icon-label {
+    max-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: max-width 0.3s ease 0.1s, margin-left 0.3s ease 0.1s;
+    font-size: 0.75rem;
+    margin-left: 0;
+  }
+
+  .footer-right a:hover .footer-icon-wrap {
+    transform: translateX(-2px);
+  }
+
+  .footer-right a:hover .footer-icon-label {
+    max-width: 5rem;
+    margin-left: 0.35rem;
+  }
+
+  @media (max-width: 640px) {
+    header {
+    }
+
+    nav {
+      gap: 0.85rem;
+      justify-content: flex-start;
+    }
+
+    .commit {
+      top: 0.7rem;
+      right: 0.85rem;
+      max-width: calc(100vw - 2rem);
+      font-size: 0.72rem;
+    }
+
+    h1 { font-size: 1.65rem; }
+
+    .item-head {
+      flex-direction: column;
+      gap: 0.15rem;
+      align-items: flex-start;
+    }
+
+    .micro-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="notice-bar">
+  <span class="notice-dot"></span>
+  site is a work in progress — still early days.
+</div>
+<span class="commit">
+  <svg class="commit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 3v6"></path>
+    <circle cx="12" cy="12" r="3"></circle>
+    <path d="M12 15v6"></path>
+  </svg>
+  <span class="commit-hash" id="hash">a7f2e1c</span>
+  <span class="commit-msg" id="msg">style: keep it simple, just give it more shape</span>
+</span>
+<div class="wrap">
+
+  <header>
+    <nav>
+      <a href="#/about" data-route="/about" class="active">about</a>
+      <a href="#/projects" data-route="/projects">projects</a>
+      <a href="#/experience" data-route="/experience">experience</a>
+      <a href="#/resume" data-route="/resume">resume</a>
+      <a href="#/writing" data-route="/writing">writing</a>
+      <a href="#/contact" data-route="/contact">contact</a>
+    </nav>
+  </header>
+
+  <section class="page active" data-page="/about">
+    <div class="line-slide-in line-delay-1" style="margin-bottom:2rem;">
+      <h1 style="margin-bottom:0.3rem;">hi! <span class="wave">+</span> i'm mohanned.</h1>
+      <div style="font-size:0.88rem; color:var(--muted); font-family:var(--serif); font-style:italic;">
+        cs honours student, builder, and occasional over-explainer of interesting systems
+      </div>
+    </div>
+
+    <p class="line-slide-in line-delay-2">
+      i wanted this version to stay close to the original file you shared: same quiet paper feel,
+      same single-column layout, same light touch. the difference is mostly structural now.
+    </p>
+
+    <p class="line-slide-in line-delay-3">
+      i'm a computer science honours student at <a class="inline" href="https://www.monash.edu" target="_blank" rel="noopener">monash</a>,
+      working across computer vision, data-heavy systems, and technical projects that are a little more thoughtful than they need to be.
+      i previously worked as a platforms intern at <a class="inline" href="https://www.ey.com" target="_blank" rel="noopener">EY</a>
+      and spent time on person re-identification research at monash.
+    </p>
+
+    <p class="line-slide-in line-delay-4">
+      what i liked from the reference site was not the look, it was the structure:
+      clearer sections, a stronger sense of progression, and room for both work and writing.
+      so this version keeps your aesthetic, but gives each part of your story its own place.
+    </p>
+
+    <p class="currently line-slide-in line-delay-5">
+      currently: <span class="currently-text" id="currently">trying to make a personal site feel like a person and not a document.</span>
+    </p>
+
+    <div class="micro-grid line-slide-in line-delay-6">
+      <div class="micro-card">
+        <strong>studying</strong>
+        cs honours at monash, data science track
+      </div>
+      <div class="micro-card">
+        <strong>working on</strong>
+        vision systems, cleaner tooling, and better technical storytelling
+      </div>
+      <div class="micro-card">
+        <strong>worth asking about</strong>
+        tracking, tableau narratives, student leadership, and weird edge cases
+      </div>
+    </div>
+
+    <div class="socials line-slide-in line-delay-7">
+      <a href="https://github.com/mohanned-omer" target="_blank" rel="noopener">
+        <span class="logo-stack" aria-hidden="true">
+          <svg class="logo-mark logo-layer logo-base" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M12 .297a12 12 0 0 0-3.79 23.403c.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.84 1.236 1.84 1.236 1.07 1.834 2.809 1.304 3.495.997.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.47-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23a11.52 11.52 0 0 1 3.005-.404c1.02.005 2.045.138 3.005.404 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57A12.003 12.003 0 0 0 12 .297z"/>
+          </svg>
+          <svg class="logo-mark logo-layer logo-fill logo-github" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M12 .297a12 12 0 0 0-3.79 23.403c.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.84 1.236 1.84 1.236 1.07 1.834 2.809 1.304 3.495.997.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.47-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23a11.52 11.52 0 0 1 3.005-.404c1.02.005 2.045.138 3.005.404 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57A12.003 12.003 0 0 0 12 .297z"/>
+          </svg>
+        </span>
+        github
+      </a>
+      <a href="https://www.linkedin.com/in/mohanned-omer/" target="_blank" rel="noopener">
+        <span class="logo-stack" aria-hidden="true">
+          <svg class="logo-mark logo-mark-tight logo-layer logo-base" viewBox="0 0 24 24">
+            <rect width="24" height="24" rx="2.2" fill="var(--bg)"/>
+            <path fill="currentColor" d="M20.447 20.452H16.9v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.365V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.063 2.063 0 1 1 0-4.126 2.063 2.063 0 0 1 0 4.126zM6.919 20.452H3.755V9h3.164zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+          <svg class="logo-mark logo-mark-tight logo-layer logo-fill logo-linkedin" viewBox="0 0 24 24">
+            <rect width="24" height="24" rx="2.2" fill="#ffffff"/>
+            <path fill="currentColor" d="M20.447 20.452H16.9v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.365V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.063 2.063 0 1 1 0-4.126 2.063 2.063 0 0 1 0 4.126zM6.919 20.452H3.755V9h3.164zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </span>
+        linkedin
+      </a>
+      <a href="./resume.pdf" target="_blank" rel="noopener">
+        <span class="logo-stack" aria-hidden="true">
+          <svg class="social-icon logo-layer logo-base" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14,2 14,8 20,8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10,9 9,9 8,9"></polyline>
+          </svg>
+          <svg class="social-icon logo-layer logo-fill" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14,2 14,8 20,8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10,9 9,9 8,9"></polyline>
+          </svg>
+        </span>
+        resume
+      </a>
+    </div>
+
+    <div style="margin-top:2rem;">
+      <span class="cursor"></span>
+    </div>
+
+    <div class="tiny-note">
+      tip: use keys <span style="color:var(--code);">1-6</span> to jump between tabs, or <span style="color:var(--code);">[ ]</span> to move left and right.
+    </div>
+  </section>
+
+  <section class="page" data-page="/projects">
+    <div class="section-label">/projects <span style="color:var(--muted)">&nbsp;// selected things i've built or worked on</span></div>
+
+    <div class="project">
+      <div class="item-head">
+        <span class="item-title">person re-identification and tracking</span>
+        <span class="item-meta">2025 - 2026</span>
+      </div>
+      <div class="item-desc">
+        built and stress-tested a real-time re-identification system that combines face and body embeddings
+        to keep identities consistent across occlusions and re-entry.
+      </div>
+      <div class="item-tags">pytorch · yolov8 · deepsort · clip-reid · tracking</div>
+    </div>
+
+    <div class="project">
+      <div class="item-head">
+        <span class="item-title">world cup, in four acts</span>
+        <span class="item-meta">2025</span>
+      </div>
+      <div class="item-desc">
+        a tableau data story on argentina's 2022 world cup run, using narrative flow instead of just charts.
+        still one of the better excuses i've had to build a sankey diagram.
+      </div>
+      <div class="item-tags">tableau · narrative viz · sports data</div>
+    </div>
+
+    <div class="project">
+      <div class="item-head">
+        <span class="item-title">medtrack</span>
+        <span class="item-meta">2025</span>
+      </div>
+      <div class="item-desc">
+        android medication tracking app designed to feel minimal and usable instead of clinical and annoying.
+      </div>
+      <div class="item-tags">kotlin · jetpack compose · material3</div>
+    </div>
+
+    <div class="project">
+      <div class="item-head">
+        <span class="item-title">vce question classifier</span>
+        <span class="item-meta">2024</span>
+      </div>
+      <div class="item-desc">
+        a retrieval-plus-reasoning pipeline for classifying exam questions by topic and difficulty.
+      </div>
+      <div class="item-tags">rag · pgvector · postgres · llm workflows</div>
+    </div>
+
+    <div class="project">
+      <div class="item-head">
+        <span class="item-title">opticargo</span>
+        <span class="item-meta">2024</span>
+      </div>
+      <div class="item-desc">
+        cargo optimisation framed as an integer linear programming problem with knapsack-style constraints.
+      </div>
+      <div class="item-tags">python · ilp · pulp · operations research</div>
+    </div>
+
+    <div class="project">
+      <div class="item-head">
+        <span class="item-title">vigil</span>
+        <span class="item-meta">concept</span>
+      </div>
+      <div class="item-desc">
+        an early concept around monitoring policy drift in llm outputs before it becomes a legal or operational problem.
+      </div>
+      <div class="item-tags">llms · compliance · product thinking</div>
+    </div>
+  </section>
+
+  <section class="page" data-page="/experience">
+    <div class="section-label">/experience <span style="color:var(--muted)">&nbsp;// the timeline, without turning the page into a resume dump</span></div>
+
+    <div class="list-item">
+      <div class="item-head">
+        <span class="item-title">platforms intern · EY</span>
+        <span class="item-meta">july 2025 - dec 2026</span>
+      </div>
+      <div class="item-desc">
+        worked on a dynamics 365-based finance platform projected to support more than 5 million users.
+        used sql and automation to reduce repetitive testing and documentation work.
+      </div>
+      <div class="item-tags">dynamics 365 · sql · azure devops · copilot studio</div>
+    </div>
+
+    <div class="list-item">
+      <div class="item-head">
+        <span class="item-title">computer vision research assistant · monash university</span>
+        <span class="item-meta">dec 2025 - march 2026</span>
+      </div>
+      <div class="item-desc">
+        scholarship-supported research on real-time person re-identification, with a focus on robust tracking
+        and identity consistency across frames.
+      </div>
+      <div class="item-tags">research · pytorch · tracking · hungarian algorithm</div>
+    </div>
+
+    <div class="list-item">
+      <div class="item-head">
+        <span class="item-title">data insights lead · monash data science and ai society</span>
+        <span class="item-meta">june 2024 - june 2025</span>
+      </div>
+      <div class="item-desc">
+        organised workshops, helped run a datathon, and grew the team from 15 to 45 members through recruiting and onboarding.
+      </div>
+      <div class="item-tags">leadership · workshops · community · events</div>
+    </div>
+
+    <div class="list-item">
+      <div class="item-head">
+        <span class="item-title">technical member · monash deep neuron</span>
+        <span class="item-meta">april 2024 - present</span>
+      </div>
+      <div class="item-desc">
+        reviewed research papers, implemented cnn architectures from scratch in pytorch,
+        and helped with onboarding and learning material for future cohorts.
+      </div>
+      <div class="item-tags">deep learning · papers · pytorch · teaching</div>
+    </div>
+
+    <div class="list-item">
+      <div class="item-head">
+        <span class="item-title">section leader · stanford code in place</span>
+        <span class="item-meta">april 2025 - june 2025</span>
+      </div>
+      <div class="item-desc">
+        selected from 4,000+ applicants to teach a group of 12 students python fundamentals.
+        ended with a 4.6 / 5 student satisfaction rating.
+      </div>
+      <div class="item-tags">python · teaching · mentoring</div>
+    </div>
+  </section>
+
+  <section class="page" data-page="/resume">
+    <div class="section-label">/resume <span style="color:var(--muted)">&nbsp;// the concise version, plus the pdf</span></div>
+
+    <div class="block">
+      <h2 class="block-title">summary</h2>
+      <p>
+        bachelor's in computer science (honours), data science specialisation, monash university.
+        expected graduation: june 2026.
+      </p>
+      <p>
+        the shorter version of the page is that i sit somewhere between applied ml, technical systems work,
+        and community-facing technical leadership.
+      </p>
+      <p class="note">
+        full pdf: <a class="inline" href="./resume.pdf" target="_blank" rel="noopener">resume.pdf</a>
+      </p>
+    </div>
+
+    <div class="block">
+      <h2 class="block-title">skills</h2>
+      <div class="skill-groups">
+        <div class="skill-row">
+          <p><strong>languages:</strong> python, java, r, sql</p>
+        </div>
+        <div class="skill-row">
+          <p><strong>data / ml:</strong> pandas, numpy, scikit-learn, seaborn, pytorch, fpp3</p>
+        </div>
+        <div class="skill-row">
+          <p><strong>themes:</strong> computer vision, tracking, automation, data storytelling</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2 class="block-title">why this tab exists</h2>
+      <p>
+        the reference site was useful here because it treated documents as part of the structure, not as an afterthought.
+        this page gives someone a quick scan before they decide if they want the full one-pager.
+      </p>
+    </div>
+  </section>
+
+  <section class="page" data-page="/writing">
+    <div class="section-label">/writing <span style="color:var(--muted)">&nbsp;// things i should probably publish</span></div>
+
+    <div class="article">
+      <div class="item-head">
+        <span class="item-title">how i built a re-identification pipeline that handles re-entry</span>
+        <span class="item-meta">draft</span>
+      </div>
+      <div class="item-desc">
+        probably the best first post: strong technical substance, and also the clearest example of what i actually enjoy building.
+      </div>
+      <div class="item-tags">computer vision · tracking · systems</div>
+    </div>
+
+    <div class="article">
+      <div class="item-head">
+        <span class="item-title">why some data stories deserve narrative structure</span>
+        <span class="item-meta">idea</span>
+      </div>
+      <div class="item-desc">
+        something around the world cup visualisation, and why a chart sequence can sometimes say more than a dashboard.
+      </div>
+      <div class="item-tags">data storytelling · tableau · narrative viz</div>
+    </div>
+
+    <div class="article">
+      <div class="item-head">
+        <span class="item-title">notes from teaching and technical community work</span>
+        <span class="item-meta">idea</span>
+      </div>
+      <div class="item-desc">
+        workshops, onboarding, teaching, and the quiet part of technical leadership that is mostly about making it easier for others to start.
+      </div>
+      <div class="item-tags">teaching · mentoring · community</div>
+    </div>
+
+    <div class="empty-blog">
+      no published posts yet, which is fine.
+      <div class="todo">// TODO: ship one strong post before trying to invent a whole blog identity</div>
+    </div>
+  </section>
+
+  <section class="page" data-page="/contact">
+    <div class="section-label">/contact <span style="color:var(--muted)">&nbsp;// short and direct</span></div>
+
+    <div class="contact-list">
+      <div class="list-item">
+        <div class="item-head">
+          <span class="item-title">linkedin</span>
+          <span class="item-meta">preferred</span>
+        </div>
+        <div class="item-desc">
+          best for professional outreach, internships, collaboration, and most normal forms of contact.
+        </div>
+        <div class="item-tags"><a class="inline" href="https://www.linkedin.com/in/mohanned-omer/" target="_blank" rel="noopener">linkedin.com/in/mohanned-omer/</a></div>
+      </div>
+
+      <div class="list-item">
+        <div class="item-head">
+          <span class="item-title">resume</span>
+          <span class="item-meta">pdf</span>
+        </div>
+        <div class="item-desc">
+          if someone just wants the clean formal version, the resume is still one click away.
+        </div>
+        <div class="item-tags"><a class="inline" href="./resume.pdf" target="_blank" rel="noopener">open resume.pdf</a></div>
+      </div>
+
+      <div class="list-item">
+        <div class="item-head">
+          <span class="item-title">what to ask me about</span>
+          <span class="item-meta">good topics</span>
+        </div>
+        <div class="item-desc">
+          computer vision, tracking systems, data projects, student societies, workshops,
+          or how to make a portfolio feel less like a chore.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="mascot">
+    <svg class="mascot-img" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="8" width="2" height="2" fill="var(--ink-soft)"/>
+      <rect x="20" y="8" width="2" height="2" fill="var(--ink-soft)"/>
+      <rect x="8" y="10" width="2" height="2" fill="var(--ink-soft)"/>
+      <rect x="22" y="10" width="2" height="2" fill="var(--ink-soft)"/>
+      <rect x="10" y="10" width="12" height="2" fill="var(--muted)"/>
+      <rect x="8" y="12" width="16" height="8" fill="var(--muted)"/>
+      <rect x="10" y="14" width="3" height="1" fill="var(--ink)"/>
+      <rect x="19" y="14" width="3" height="1" fill="var(--ink)"/>
+      <rect x="15" y="16" width="2" height="2" fill="var(--ink-soft)"/>
+      <rect x="8" y="20" width="16" height="6" fill="var(--muted)"/>
+      <rect x="6" y="22" width="2" height="4" fill="var(--muted)"/>
+      <rect x="24" y="22" width="2" height="4" fill="var(--muted)"/>
+      <rect x="8" y="26" width="4" height="2" fill="var(--muted)"/>
+      <rect x="20" y="26" width="4" height="2" fill="var(--muted)"/>
+      <text class="z z1" x="26" y="12" font-size="4" fill="var(--accent)">z</text>
+      <text class="z z2" x="28" y="9" font-size="5" fill="var(--accent)" opacity="0.7">z</text>
+      <text class="z z3" x="30" y="6" font-size="6" fill="var(--accent)" opacity="0.5">Z</text>
+    </svg>
+
+    <footer class="site-footer">
+      <span class="footer-left">&copy; 2026 mohanned</span>
+      <span class="footer-center">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;vertical-align:middle;margin-right:0.4rem;opacity:0.7;">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        <span id="time-on-site">0:00</span>&nbsp;on site
+      </span>
+      <span class="footer-right">
+        <a href="https://github.com/mohanned-omer" target="_blank" rel="noopener" aria-label="GitHub" class="footer-github">
+          <span class="footer-icon-wrap">
+            <svg class="footer-icon-layer footer-icon-base" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 .297a12 12 0 0 0-3.79 23.403c.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.84 1.236 1.84 1.236 1.07 1.834 2.809 1.304 3.495.997.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.47-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23a11.52 11.52 0 0 1 3.005-.404c1.02.005 2.045.138 3.005.404 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57A12.003 12.003 0 0 0 12 .297z"/>
+            </svg>
+            <svg class="footer-icon-layer footer-icon-fill" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 .297a12 12 0 0 0-3.79 23.403c.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.84 1.236 1.84 1.236 1.07 1.834 2.809 1.304 3.495.997.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.47-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23a11.52 11.52 0 0 1 3.005-.404c1.02.005 2.045.138 3.005.404 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57A12.003 12.003 0 0 0 12 .297z"/>
+            </svg>
+          </span>
+          <span class="footer-icon-label">github</span>
+        </a>
+        <a href="https://www.linkedin.com/in/mohanned-omer/" target="_blank" rel="noopener" aria-label="LinkedIn" class="footer-linkedin">
+          <span class="footer-icon-wrap">
+            <svg class="footer-icon-layer footer-icon-base" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452H16.9v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.365V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.063 2.063 0 1 1 0-4.126 2.063 2.063 0 0 1 0 4.126zM6.919 20.452H3.755V9h3.164zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            <svg class="footer-icon-layer footer-icon-fill" viewBox="0 0 24 24">
+              <rect width="24" height="24" rx="2.2" fill="#0a66c2"/>
+              <path fill="#ffffff" d="M20.447 20.452H16.9v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.365V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.063 2.063 0 1 1 0-4.126 2.063 2.063 0 0 1 0 4.126zM6.919 20.452H3.755V9h3.164z"/>
+            </svg>
+          </span>
+          <span class="footer-icon-label">linkedin</span>
+        </a>
+      </span>
+    </footer>
+  </div>
+
+</div>
+
+<script>
+  const currentlyOptions = [
+    'trying to make a personal site feel like a person and not a document.',
+    'arguing with tracking edge cases that only show up after midnight.',
+    'turning projects into explanations instead of bullet points.',
+    'keeping the site simple while quietly making it more useful.',
+    'convincing myself to publish the first real post.'
+  ];
+
+  const commits = [
+    { hash: 'a7f2e1c', msg: 'style: keep it simple, just give it more shape' },
+    { hash: 'c1d804a', msg: 'feat: add tabs without losing the original mood' },
+    { hash: '7b3fa90', msg: 'refactor: let the structure do the work' },
+    { hash: '2d9e001', msg: 'docs: make room for future writing' },
+    { hash: '91fa2be', msg: 'fix: stop designing so hard' }
+  ];
+
+  let curIdx = 0;
+  const curEl = document.getElementById('currently');
+
+  setInterval(() => {
+    curEl.style.opacity = '0';
+    setTimeout(() => {
+      curIdx = (curIdx + 1) % currentlyOptions.length;
+      curEl.textContent = currentlyOptions[curIdx];
+      curEl.style.opacity = '1';
+    }, 400);
+  }, 4000);
+
+  let commitIdx = 0;
+  const hashEl = document.getElementById('hash');
+  const msgEl = document.getElementById('msg');
+
+  setInterval(() => {
+    msgEl.style.opacity = '0';
+    setTimeout(() => {
+      commitIdx = (commitIdx + 1) % commits.length;
+      hashEl.textContent = commits[commitIdx].hash;
+      msgEl.textContent = commits[commitIdx].msg;
+      msgEl.style.opacity = '1';
+    }, 400);
+  }, 5500);
+
+  const pages = document.querySelectorAll('.page');
+  const routeOrder = ['/about', '/projects', '/experience', '/resume', '/writing', '/contact'];
+
+  function route() {
+    const saved = localStorage.getItem('mohanned-route');
+    const hash = window.location.hash.replace('#', '') || saved || '/about';
+    pages.forEach((page) => {
+      page.classList.toggle('active', page.dataset.page === hash);
+    });
+
+    document.querySelectorAll('nav a').forEach((link) => {
+      link.classList.toggle('active', link.dataset.route === hash);
+    });
+
+    localStorage.setItem('mohanned-route', hash);
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }
+
+  function goToRoute(nextRoute) {
+    window.location.hash = nextRoute;
+  }
+
+  document.addEventListener('keydown', (event) => {
+    const activeTag = document.activeElement && document.activeElement.tagName;
+    if (activeTag === 'INPUT' || activeTag === 'TEXTAREA') return;
+
+    if (/^[1-6]$/.test(event.key)) {
+      goToRoute(routeOrder[Number(event.key) - 1]);
+      return;
+    }
+
+    const current = (window.location.hash.replace('#', '') || '/about');
+    const currentIndex = routeOrder.indexOf(current);
+    if (currentIndex === -1) return;
+
+    if (event.key === ']') {
+      goToRoute(routeOrder[(currentIndex + 1) % routeOrder.length]);
+    }
+
+    if (event.key === '[') {
+      goToRoute(routeOrder[(currentIndex - 1 + routeOrder.length) % routeOrder.length]);
+    }
+  });
+
+  const siteStart = Date.now();
+  const timeEl = document.getElementById('time-on-site');
+  setInterval(() => {
+    const s = Math.floor((Date.now() - siteStart) / 1000);
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    timeEl.textContent = m + ':' + String(sec).padStart(2, '0');
+  }, 1000);
+
+  window.addEventListener('hashchange', route);
+  route();
+</script>
+</body>
+</html>
