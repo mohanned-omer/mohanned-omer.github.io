@@ -4,7 +4,7 @@
 
 .bookshelf-page {
   position: fixed;
-  inset: 0;
+  inset: var(--construction-banner-height) 0 0;
   background: white;
   display: flex;
   overflow: hidden;
@@ -310,7 +310,7 @@
 
 .book-detail-scroller {
   position: fixed;
-  inset: 0;
+  inset: var(--construction-banner-height) 0 0;
   overflow-y: auto;
   scroll-snap-type: y mandatory;
   -webkit-overflow-scrolling: touch;
@@ -331,7 +331,7 @@
 /* Fixed floating nav */
 .book-detail-fixed-nav {
   position: fixed;
-  top: 1.5rem;
+  top: calc(var(--construction-banner-height) + 1.5rem);
   left: 1.5rem;
   right: 1.5rem;
   display: flex;

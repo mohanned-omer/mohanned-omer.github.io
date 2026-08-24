@@ -1,12 +1,15 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 import { preloadRouteForPath, routes, scheduleRoutePreloading } from './config/routes';
+import ConstructionBanner from './components/common/ConstructionBanner';
 import ScrollRestoration from './components/common/ScrollRestoration';
 import NotFoundPage from './pages/NotFoundPage';
 
 const RoutePending = () => <div className="route-pending" aria-hidden="true" />;
 
 function App() {
+  const location = useLocation();
+
   React.useEffect(() => scheduleRoutePreloading(), []);
 
   const handleLinkIntent = React.useCallback((event) => {
@@ -29,22 +32,25 @@ function App() {
       onMouseOverCapture={handleLinkIntent}
       onTouchStartCapture={handleLinkIntent}
     >
+      <ConstructionBanner />
       <ScrollRestoration />
-      <React.Suspense fallback={<RoutePending />}>
-        <Switch>
-          {routes.map((route, index) => (
-            <Route
-              key={index}
-              path={route.path}
-              exact={route.exact}
-              component={route.component}
-            />
-          ))}
-          <Route>
-            <NotFoundPage />
-          </Route>
-        </Switch>
-      </React.Suspense>
+      <div key={location.key || location.pathname} className="route-transition">
+        <React.Suspense fallback={<RoutePending />}>
+          <Switch location={location}>
+            {routes.map((route, index) => (
+              <Route
+                key={index}
+                path={route.path}
+                exact={route.exact}
+                component={route.component}
+              />
+            ))}
+            <Route>
+              <NotFoundPage />
+            </Route>
+          </Switch>
+        </React.Suspense>
+      </div>
     </div>
   );
 }
