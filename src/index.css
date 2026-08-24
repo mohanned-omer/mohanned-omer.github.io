@@ -247,6 +247,16 @@
   }
 }
 
+@keyframes route-enter-mobile {
+  from {
+    opacity: 0.72;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
 
   /* Nothing may be left stranded mid-animation when motion is declined. */
@@ -278,6 +288,19 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     transition-delay: 0ms !important;
+  }
+}
+
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  .construction-banner {
+    background: #fafafa;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .route-transition {
+    animation-name: route-enter-mobile;
+    animation-duration: 180ms;
   }
 }
 
