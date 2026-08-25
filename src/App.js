@@ -1,57 +1,29 @@
 import React from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
-import { preloadRouteForPath, routes, scheduleRoutePreloading } from './config/routes';
-import ConstructionBanner from './components/common/ConstructionBanner';
-import ScrollRestoration from './components/common/ScrollRestoration';
-import NotFoundPage from './pages/NotFoundPage';
-
-const RoutePending = () => <div className="route-pending" aria-hidden="true" />;
-
 function App() {
-  const location = useLocation();
-
-  React.useEffect(() => scheduleRoutePreloading(), []);
-
-  const handleLinkIntent = React.useCallback((event) => {
-    const target = event.target;
-    if (!(target instanceof Element)) return;
-
-    const anchor = target.closest('a[href]');
-    if (!anchor) return;
-
-    const url = new URL(anchor.href, window.location.origin);
-    if (url.origin !== window.location.origin) return;
-
-    preloadRouteForPath(url.pathname);
-  }, []);
-
   return (
-    <div
-      className="App"
-      onFocusCapture={handleLinkIntent}
-      onMouseOverCapture={handleLinkIntent}
-      onTouchStartCapture={handleLinkIntent}
-    >
-      <ConstructionBanner />
-      <ScrollRestoration />
-      <div key={location.key || location.pathname} className="route-transition">
-        <React.Suspense fallback={<RoutePending />}>
-          <Switch location={location}>
-            {routes.map((route, index) => (
-              <Route
-                key={index}
-                path={route.path}
-                exact={route.exact}
-                component={route.component}
-              />
-            ))}
-            <Route>
-              <NotFoundPage />
-            </Route>
-          </Switch>
-        </React.Suspense>
-      </div>
-    </div>
+    <main className="coming-soon">
+      <div className="coming-soon__frame" aria-hidden="true" />
+
+      <section className="coming-soon__content" aria-labelledby="coming-soon-title">
+        <p className="coming-soon__eyebrow">Mohanned Omer</p>
+
+        <div className="coming-soon__rule" />
+
+        <h1 id="coming-soon-title">Coming soon.</h1>
+        <p className="coming-soon__message">
+          I&rsquo;m making a few final adjustments to this space.
+          <br />
+          The site will be back online shortly.
+        </p>
+
+        <div className="coming-soon__status" role="status">
+          <span className="coming-soon__status-dot" aria-hidden="true" />
+          Work in progress
+        </div>
+      </section>
+
+      <p className="coming-soon__footer">mohanned-omer.com</p>
+    </main>
   );
 }
 
