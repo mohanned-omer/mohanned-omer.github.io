@@ -6,11 +6,11 @@ export const experiences = [
         dates: 'Jul 2025 — Dec 2025',
         location: 'Melbourne, Australia',
         points: [
-            'Configured core components of Dynamics 365 Finance for an ERP platform projected to support more than five million users.',
-            'Used SQL to reduce a manual testing process from four hours to fifteen minutes and documented the results in Azure DevOps.',
-            'Automated technical requirements documentation with Copilot Studio, reducing the task from eight hours to three.',
+            'Supported enterprise financial operations for a platform projected to serve 5M+ users by configuring core components in Dynamics 365 Finance.',
+            'Reduced manual testing time by 83% (4 hours to 40 minutes) by automating validation workflows with SQL and tracking test results in Azure DevOps.',
+            'Cut requirements documentation time by 60% (8 to 3 hours per document) by building an AI-assisted document generation workflow using Power Automate.',
         ],
-        stack: ['Dynamics 365 Finance', 'SQL', 'Azure DevOps', 'Copilot Studio'],
+        stack: ['Dynamics 365 Finance', 'SQL', 'Azure DevOps', 'Power Automate'],
     },
     {
         id: 'monash-computer-vision',
@@ -19,8 +19,8 @@ export const experiences = [
         dates: 'Dec 2025 — Mar 2026',
         location: 'Melbourne, Australia',
         points: [
-            'Built and stress-tested a real-time person re-identification system combining face and body embeddings.',
-            'Used PyTorch, YOLOv8, DeepSORT, and CLIP-ReID, with Hungarian matching for detection-to-track assignment.',
+            'Built and stress-tested a real-time person re-identification system to maintain consistent identities across video frames by combining face and body embeddings, using PyTorch, YOLOv8, DeepSORT, and CLIP-ReID.',
+            'Addressed limitations in detection-to-track matching by implementing Hungarian matching for globally optimal one-to-one assignment between new detections and existing person tracks.',
         ],
         stack: ['Research', 'PyTorch', 'Tracking', 'Hungarian matching'],
         relatedTo: '/projects/person-re-identification',
@@ -33,21 +33,8 @@ export const experiences = [
         dates: 'Apr 2025 — Jun 2025',
         location: 'Remote',
         points: [
-            'Selected from more than 4,000 applicants to teach Python fundamentals to twelve university-level students.',
-            'Finished the program with a 4.6/5 student satisfaction rating.',
+            'Tutored 12 university-level students through Python Fundamentals and achieved a student satisfaction rating of 4.6/5.',
         ],
         stack: ['Python', 'Teaching', 'Mentoring', 'Technical communication'],
-    },
-    {
-        id: 'monash-deep-neuron',
-        organisation: 'Monash Deep Neuron',
-        role: 'Technical Member, Deep Learning',
-        dates: 'Apr 2024 — Present',
-        location: 'Melbourne, Australia',
-        points: [
-            'Reviewed brain tumour segmentation research and summarised findings from recent literature.',
-            'Implemented and trained CNN architectures from research papers in PyTorch from scratch.',
-        ],
-        stack: ['Deep learning', 'Research papers', 'PyTorch'],
     },
 ];
