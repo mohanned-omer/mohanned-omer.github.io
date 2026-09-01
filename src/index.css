@@ -3,146 +3,13 @@
 @tailwind utilities;
 
 /* =========================================
-   TEMPORARY COMING-SOON PAGE
-   Remove this section when the full site is ready to return.
-   ========================================= */
-.coming-soon {
-  position: relative;
-  min-height: 100vh;
-  min-height: 100dvh;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  padding: 3rem clamp(1.5rem, 5vw, 5rem);
-  background:
-    radial-gradient(circle at 75% 20%, rgba(0, 0, 0, 0.025), transparent 28rem),
-    #fafafa;
-  color: #171717;
-}
-
-.coming-soon__frame {
-  position: absolute;
-  inset: 1rem;
-  border: 1px solid #e5e5e5;
-  pointer-events: none;
-}
-
-.coming-soon__content {
-  width: min(100%, 44rem);
-  animation: coming-soon-enter 700ms var(--ease-signature) both;
-}
-
-.coming-soon__eyebrow {
-  margin: 0;
-  color: #737373;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.coming-soon__rule {
-  width: 2.5rem;
-  height: 1px;
-  margin: 1.5rem 0 2.5rem;
-  background: #a3a3a3;
-}
-
-.coming-soon h1 {
-  max-width: 10ch;
-  margin: 0;
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: clamp(3.5rem, 11vw, 8rem);
-  font-weight: 600;
-  line-height: 0.92;
-  letter-spacing: -0.065em;
-}
-
-.coming-soon__message {
-  margin: 2.25rem 0 0;
-  color: #737373;
-  font-size: clamp(0.78rem, 1.4vw, 0.9rem);
-  line-height: 1.8;
-}
-
-.coming-soon__status {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin-top: 3rem;
-  color: #525252;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.coming-soon__status-dot {
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: 50%;
-  background: #737373;
-  box-shadow: 0 0 0 0 rgba(82, 82, 82, 0.3);
-  animation: coming-soon-pulse 2.4s ease-out infinite;
-}
-
-.coming-soon__footer {
-  position: absolute;
-  right: clamp(2rem, 5vw, 5rem);
-  bottom: 2.25rem;
-  margin: 0;
-  color: #a3a3a3;
-  font-size: 0.6rem;
-  letter-spacing: 0.08em;
-}
-
-@keyframes coming-soon-enter {
-  from {
-    opacity: 0;
-    transform: translateY(1rem);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes coming-soon-pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(82, 82, 82, 0.3);
-  }
-
-  55%,
-  100% {
-    box-shadow: 0 0 0 0.55rem rgba(82, 82, 82, 0);
-  }
-}
-
-@media (max-width: 640px) {
-  .coming-soon {
-    place-items: start center;
-    padding-top: 24vh;
-  }
-
-  .coming-soon__frame {
-    inset: 0.65rem;
-  }
-
-  .coming-soon__footer {
-    right: 1.5rem;
-    bottom: 1.5rem;
-  }
-}
-
-/* =========================================
    MOTION SYSTEM
    One curve, three durations. Easing reads as personality, so everything
    that moves on this site moves with the same hand.
    ========================================= */
 :root {
   --ease-signature: cubic-bezier(0.16, 1, 0.3, 1);
-  --construction-banner-height: 2.75rem;
+  --construction-banner-height: 0rem;
 
   --duration-state: 120ms;
   /* hover, focus, press */
@@ -153,6 +20,12 @@
 
   --reveal-shift: 14px;
   --reveal-step: 45ms;
+
+  /* Homepage type scale: metadata / labels / body. Display sizes are reserved
+     for page titles and the name in the opening header. */
+  --type-meta: 0.625rem;
+  --type-label: 0.75rem;
+  --type-body: 0.875rem;
 }
 
 .construction-banner {
@@ -208,7 +81,7 @@
 /* Base layer customizations */
 @layer base {
   html {
-    @apply antialiased scroll-smooth;
+    @apply antialiased;
   }
 
   body {
@@ -238,7 +111,7 @@
      and the space above each heading already says "new section" — drawing
      the boundary twice is the cheapest kind of clutter to remove. */
   .section-header {
-    @apply text-xs font-bold uppercase tracking-widest mb-6 text-neutral-400;
+    @apply mb-6 text-xs font-bold uppercase tracking-widest text-neutral-600;
   }
 
   /* ---------------------------------------
@@ -357,6 +230,388 @@
     max-height: 5rem;
     opacity: 1;
   }
+
+  /* ---------------------------------------
+     Activity profiles — small, self-contained dashboards. Platform colour is
+     kept to the data visualization and one edge so these still belong to the
+     otherwise neutral site.
+     --------------------------------------- */
+  .activity-card {
+    --activity-accent: #737373;
+    --activity-accent-soft: rgba(115, 115, 115, 0.08);
+    --activity-accent-border: rgba(115, 115, 115, 0.35);
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    min-height: 20rem;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #e5e5e5;
+    border-radius: 1.125rem;
+    background:
+      radial-gradient(circle at 100% 0, var(--activity-accent-soft), transparent 15rem),
+      linear-gradient(145deg, #ffffff 25%, #fafafa 100%);
+    padding: 1.5rem;
+    color: #171717;
+    text-decoration: none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.025), 0 10px 32px rgba(0, 0, 0, 0.025);
+    transition:
+      transform var(--duration-transition) var(--ease-signature),
+      border-color var(--duration-transition) ease,
+      box-shadow var(--duration-transition) ease;
+  }
+
+  .activity-card::before {
+    position: absolute;
+    top: 0;
+    right: 1.5rem;
+    left: 1.5rem;
+    height: 2px;
+    border-radius: 0 0 999px 999px;
+    background: var(--activity-accent);
+    content: '';
+    opacity: 0.85;
+    transform: scaleX(0.28);
+    transform-origin: left;
+    transition: transform var(--duration-transition) var(--ease-signature);
+  }
+
+  .activity-card--leetcode {
+    --activity-accent: #e9a33b;
+    --activity-accent-soft: rgba(233, 163, 59, 0.11);
+    --activity-accent-border: rgba(233, 163, 59, 0.42);
+  }
+
+  .activity-card--chess {
+    --activity-accent: #769656;
+    --activity-accent-soft: rgba(118, 150, 86, 0.12);
+    --activity-accent-border: rgba(118, 150, 86, 0.45);
+  }
+
+  .activity-card:hover,
+  .activity-card:focus-visible {
+    border-color: var(--activity-accent-border);
+    color: #171717;
+    box-shadow: 0 16px 42px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
+  }
+
+  .activity-card:hover::before,
+  .activity-card:focus-visible::before {
+    transform: scaleX(1);
+  }
+
+  .activity-card__header,
+  .activity-card__identity,
+  .activity-card__footer,
+  .activity-card__link {
+    display: flex;
+    align-items: center;
+  }
+
+  .activity-card__header {
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .activity-card__identity {
+    min-width: 0;
+    gap: 0.75rem;
+  }
+
+  .activity-card__mark {
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 1px solid var(--activity-accent-border);
+    border-radius: 0.75rem;
+    background: rgba(255, 255, 255, 0.7);
+    color: var(--activity-accent);
+    font-size: 0.9rem;
+    font-weight: 800;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+  }
+
+  .activity-card--chess .activity-card__mark {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.35rem;
+  }
+
+  .activity-card__name,
+  .activity-card__handle {
+    display: block;
+  }
+
+  .activity-card__name {
+    font-size: var(--type-body);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+
+  .activity-card__handle {
+    margin-top: 0.1rem;
+    overflow: hidden;
+    color: #a3a3a3;
+    font-size: var(--type-meta);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .activity-card__link {
+    flex: 0 0 auto;
+    gap: 0.35rem;
+    color: #a3a3a3;
+    font-size: var(--type-meta);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color var(--duration-state) ease;
+  }
+
+  .activity-card:hover .activity-card__link,
+  .activity-card:focus-visible .activity-card__link {
+    color: var(--activity-accent);
+  }
+
+  .activity-card__link span {
+    transition: transform var(--duration-transition) var(--ease-signature);
+  }
+
+  .activity-card:hover .activity-card__link span,
+  .activity-card:focus-visible .activity-card__link span {
+    transform: translate(2px, -2px);
+  }
+
+  .activity-card__footer {
+    justify-content: space-between;
+    border-top: 1px solid rgba(229, 229, 229, 0.8);
+    padding-top: 0.8rem;
+    color: #b3b3b3;
+    font-size: var(--type-meta);
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .leetcode-visual,
+  .chess-visual {
+    display: grid;
+    flex: 1;
+    grid-template-columns: minmax(7.5rem, 0.85fr) minmax(0, 1.15fr);
+    align-items: center;
+    gap: clamp(1.25rem, 4vw, 2.25rem);
+    padding: 1.5rem 0;
+  }
+
+  .leetcode-ring {
+    position: relative;
+    width: min(100%, 9rem);
+    aspect-ratio: 1;
+    margin: 0 auto;
+  }
+
+  .leetcode-ring__chart {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 0.72rem), #000 calc(100% - 0.68rem));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 0.72rem), #000 calc(100% - 0.68rem));
+  }
+
+  .leetcode-ring__value {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+  }
+
+  .leetcode-ring__value strong {
+    font-size: clamp(1.8rem, 4vw, 2.35rem);
+    line-height: 1;
+    letter-spacing: -0.06em;
+  }
+
+  .leetcode-ring__value small {
+    margin-top: 0.4rem;
+    color: #a3a3a3;
+    font-size: var(--type-meta);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .leetcode-levels {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .leetcode-level {
+    display: grid;
+    grid-template-columns: 0.45rem 1fr auto;
+    align-items: center;
+    gap: 0.65rem;
+    border-bottom: 1px solid rgba(229, 229, 229, 0.72);
+    padding: 0.45rem 0;
+  }
+
+  .leetcode-level__dot {
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 999px;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.8);
+  }
+
+  .leetcode-level__label {
+    color: #737373;
+    font-size: var(--type-label);
+  }
+
+  .leetcode-level strong {
+    color: #404040;
+    font-size: var(--type-label);
+  }
+
+  .leetcode-levels p,
+  .chess-rating p {
+    margin: 0.45rem 0 0;
+    color: #a3a3a3;
+    font-size: var(--type-meta);
+    line-height: 1.65;
+  }
+
+  .chess-board {
+    display: grid;
+    width: min(100%, 9rem);
+    aspect-ratio: 1;
+    grid-template-columns: repeat(8, 1fr);
+    overflow: hidden;
+    margin: 0 auto;
+    border: 3px solid rgba(255, 255, 255, 0.92);
+    border-radius: 0.8rem;
+    background: #f0d9b5;
+    box-shadow: 0 8px 20px rgba(63, 81, 45, 0.16), 0 0 0 1px rgba(118, 150, 86, 0.18);
+  }
+
+  .chess-board__square {
+    display: grid;
+    aspect-ratio: 1;
+    place-items: center;
+    background: #f0d9b5;
+    color: #252b20;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(0.7rem, 1.8vw, 1rem);
+    line-height: 1;
+  }
+
+  .chess-board__square.is-dark {
+    background: #8eaa70;
+  }
+
+  .chess-rating__label {
+    display: block;
+    color: #769656;
+    font-size: var(--type-meta);
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .chess-rating>strong {
+    display: block;
+    margin-top: 0.45rem;
+    font-size: clamp(2rem, 4vw, 2.6rem);
+    line-height: 1;
+    letter-spacing: -0.06em;
+  }
+
+  .chess-rating__track {
+    height: 0.3rem;
+    overflow: hidden;
+    margin-top: 1.1rem;
+    border-radius: 999px;
+    background: rgba(118, 150, 86, 0.14);
+  }
+
+  .chess-rating__track span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: #769656;
+  }
+
+  .chess-rating__meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-top: 0.55rem;
+    color: #737373;
+    font-size: var(--type-meta);
+  }
+}
+
+@media (max-width: 767px) {
+  .activity-card {
+    min-height: 18rem;
+    padding: 1.125rem;
+  }
+
+  .activity-card::before {
+    right: 1.125rem;
+    left: 1.125rem;
+  }
+
+  .activity-card__mark {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .activity-card__link {
+    width: 2rem;
+    height: 2rem;
+    justify-content: center;
+    border: 1px solid #e5e5e5;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
+    font-size: 0.7rem;
+  }
+
+  .activity-card__link-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .leetcode-visual,
+  .chess-visual {
+    grid-template-columns: 6.75rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 1.25rem 0;
+  }
+
+  .leetcode-ring,
+  .chess-board {
+    width: 6.75rem;
+  }
+
+  .leetcode-levels p,
+  .chess-rating p {
+    display: none;
+  }
+
+  .leetcode-level {
+    gap: 0.45rem;
+  }
+
+  .chess-rating__meta {
+    display: grid;
+    gap: 0.2rem;
+  }
 }
 
 @keyframes route-pending {
@@ -409,11 +664,6 @@
     animation: none;
     opacity: 0.2;
     width: 100%;
-  }
-
-  .coming-soon__content,
-  .coming-soon__status-dot {
-    animation: none;
   }
 
   html {
@@ -562,14 +812,14 @@
 }
 
 .footer-name {
-  font-size: 0.85rem;
+  font-size: var(--type-body);
   font-weight: 700;
   color: #171717;
   letter-spacing: -0.01em;
 }
 
 .footer-lab {
-  font-size: 0.7rem;
+  font-size: var(--type-meta);
   font-weight: 600;
   color: #a3a3a3;
   letter-spacing: 0.06em;
@@ -581,7 +831,7 @@
   align-items: center;
   gap: 0.4rem;
   margin-top: 1rem;
-  font-size: 0.65rem;
+  font-size: var(--type-meta);
   color: #a3a3a3;
   letter-spacing: 0.04em;
 }
@@ -602,11 +852,11 @@
 }
 
 .footer-col-heading {
-  font-size: 0.6rem;
+  font-size: var(--type-label);
   font-weight: 700;
-  color: #a3a3a3;
+  color: #525252;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
 }
 
 .footer-col-nav {
@@ -621,7 +871,7 @@
   gap: 0.5rem;
   color: #525252;
   text-decoration: none;
-  font-size: 0.78rem;
+  font-size: var(--type-label);
   transition: color var(--duration-state) var(--ease-signature), transform var(--duration-state) var(--ease-signature);
   transform: translateX(0);
 }
@@ -632,7 +882,7 @@
 }
 
 .footer-link-dash {
-  font-size: 0.6rem;
+  font-size: var(--type-meta);
   color: #d4d4d4;
   transition: color var(--duration-state) var(--ease-signature);
   flex-shrink: 0;
@@ -643,7 +893,7 @@
 }
 
 .footer-link-arrow {
-  font-size: 0.6rem;
+  font-size: var(--type-meta);
   opacity: 0;
   margin-left: -0.2rem;
   transition: opacity var(--duration-state) var(--ease-signature), margin-left var(--duration-state) var(--ease-signature);
@@ -664,13 +914,13 @@
 }
 
 .footer-copyright {
-  font-size: 0.62rem;
+  font-size: var(--type-meta);
   color: #a3a3a3;
   letter-spacing: 0.04em;
 }
 
 .footer-build {
-  font-size: 0.62rem;
+  font-size: var(--type-meta);
   color: #d4d4d4;
   font-style: italic;
 }
