@@ -16,8 +16,8 @@ export const projectSummaries = [
     description:
       'A research-discovery platform indexing 480+ university listings with semantic search and clustering-based categorisation.',
     stack: 'Java, Spring Boot, TypeScript, Next.js, PostgreSQL, pgvector, OpenAI embeddings',
-    link: 'https://supervisor-connect.supervisor-connect.workers.dev',
-    linkLabel: 'Live app',
+    link: '/projects/supervisor-connect',
+    linkLabel: 'Work in progress',
     date: '',
     slug: 'supervisor-connect',
   },
