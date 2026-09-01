@@ -46,10 +46,10 @@ export const siteContent = {
             name: 'Supervisor Connect',
             type: 'Full-Stack ML Application',
             description: 'Research Monash Supervsiors and Projects with semantic search and clustering-based categorisation.',
-            stack: 'Spring Boot, Next.js, PostgreSQL, pgvector',
+            stack: 'Spring Boot, Next.js, pgvector',
             slug: 'supervisor-connect',
             link: '/projects/supervisor-connect',
-            linkLabel: 'Work in progress',
+            linkLabel: '',
         },
         {
             name: 'Mini PyTorch Framework & 3D U-Net',
