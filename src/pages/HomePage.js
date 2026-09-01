@@ -2,17 +2,13 @@ import React from 'react';
 import Header from '../components/sections/Header';
 import WhatThisIs from '../components/sections/WhatThisIs';
 import Outputs from '../components/sections/Outputs';
-import LabLog from '../components/sections/LabLog';
-import HowIWork from '../components/sections/HowIWork';
 import Domains from '../components/sections/Domains';
 import PersonalActivity from '../components/sections/PersonalActivity';
-import CollaborationBoundary from '../components/sections/CollaborationBoundary';
 import Footer from '../components/sections/Footer';
 
 /**
  * Ordered as the reader's questions arrive: who is this, is anything real here,
- * is it still running, how do they think, what's the scope, can I work with
- * them.
+ * what's the scope, can I work with them.
  *
  * Evidence comes second rather than fifth. The first scroll is a contract test
  * — a visitor is deciding whether there is anything behind the claims — and
@@ -32,14 +28,10 @@ const HomePage = () => (
         <WhatThisIs className="pt-2 pb-12" />
 
         <Outputs className="pt-14 md:pt-20 pb-12" />
-        <LabLog className="pt-12 pb-12" />
 
-        <HowIWork className="pt-14 md:pt-20 pb-12" />
-        <Domains className="pt-12 pb-12" />
+        <Domains className="pt-14 md:pt-20 pb-12" />
 
         <PersonalActivity className="pt-12 pb-12" />
-
-        <CollaborationBoundary className="pt-14 md:pt-20 pb-4" />
 
         <Footer />
     </main>

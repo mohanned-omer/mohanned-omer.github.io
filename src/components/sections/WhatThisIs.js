@@ -5,7 +5,7 @@ import { siteContent } from '../../data/siteContent';
 const WhatThisIs = ({ className = '' }) => (
     <section className={className}>
         <h2 className="section-header">What This Site Is</h2>
-        <p className="text-base md:text-lg leading-relaxed text-neutral-700 max-w-2xl">
+        <p className="max-w-2xl text-base leading-relaxed text-neutral-800 md:text-lg">
             {siteContent.whatThisIs}
         </p>
     </section>

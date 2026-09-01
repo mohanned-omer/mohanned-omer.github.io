@@ -31,10 +31,6 @@ const Footer = () => {
                 <div className="footer-identity">
                     <span className="footer-name">{name}</span>
                     <span className="footer-lab">{role}</span>
-                    <div className="footer-status">
-                        <span className="footer-status-dot" />
-                        <span>Open to development opportunities</span>
-                    </div>
                 </div>
 
                 {/* Right — Network */}

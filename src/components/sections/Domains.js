@@ -11,7 +11,7 @@ import { siteContent } from '../../data/siteContent';
  */
 const Domains = ({ className = '' }) => (
     <section className={className}>
-        <h2 className="section-header">Domains I Work In</h2>
+        <h2 className="section-header">Domains I Enjoy</h2>
 
         <Reveal as="ul" stagger className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 list-none p-0 m-0">
             {siteContent.domains.map((domain, index) => (
